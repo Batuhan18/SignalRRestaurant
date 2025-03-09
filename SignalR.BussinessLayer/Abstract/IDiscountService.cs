@@ -9,5 +9,8 @@ namespace SignalR.BussinessLayer.Abstract
 {
     public interface IDiscountService : IGenericService<Discount>
     {
+        void TChangeStatusTrue(int id);
+        void TChangeStatusFalse(int id);
+        List<Discount> TGetListByStatusTrue();
     }
 }
