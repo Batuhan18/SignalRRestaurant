@@ -17,5 +17,6 @@ namespace SignalR.BussinessLayer.Abstract
         string TProductNamePriceByMax();
         string TProductNamePriceByMin();
         decimal TProductPriceByHamburger();
+        List<Product> TGetLastNineProducts();
     }
 }

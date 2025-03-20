@@ -111,5 +111,12 @@ namespace SignalRApi.Controllers
         {
             return Ok(_productService.TProductPriceByHamburger());
         }
+
+        [HttpGet("GetTakeNineProducts")]
+        public IActionResult GetTakeNineProducts()
+        {
+            var value = _productService.TGetLastNineProducts();
+            return Ok(value);
+        }
     }
 }

@@ -33,6 +33,11 @@ namespace SignalR.BussinessLayer.Concrete
             return _productDal.GetById(id);
         }
 
+        public List<Product> TGetLastNineProducts()
+        {
+            return _productDal.GetLastNineProducts();
+        }
+
         public List<Product> TGetListAll()
         {
             return _productDal.GetListAll();

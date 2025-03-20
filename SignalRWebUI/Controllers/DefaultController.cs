@@ -1,8 +1,11 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
+using SignalR.DtoLayer.ContactDto;
 using SignalRWebUI.Dtos.MessageDtos;
 using System.Text;
+using System.Text.Json.Nodes;
 
 namespace SignalRWebUI.Controllers
 {
@@ -16,8 +19,21 @@ namespace SignalRWebUI.Controllers
             _httpClientFactory = httpClientFactory;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
+            //var client = _httpClientFactory.CreateClient();
+            //var responseMessage = await client.GetAsync("https://localhost:7224/api/Contact");
+            //var jsonData = await responseMessage.Content.ReadAsStringAsync();
+            ////var values = JsonConvert.DeserializeObject<ResultContactDto>(jsonData);
+            //JsonObject item = JsonObject.Parse(jsonData);
+            //ViewBag.location = values.Location;
+
+            HttpClient client = new HttpClient();
+            HttpResponseMessage response = await client.GetAsync("https://localhost:7224/api/Contact");
+            response.EnsureSuccessStatusCode();
+            string responseBody = await response.Content.ReadAsStringAsync();
+            JArray item = JArray.Parse(responseBody);
+            ViewBag.location = item[0]["location"].ToString();
             return View();
         }
 
@@ -36,7 +52,7 @@ namespace SignalRWebUI.Controllers
             var responseMessage = await client.PostAsync("https://localhost:7224/api/Message", content);
             if (responseMessage.IsSuccessStatusCode)
             {
-                return RedirectToAction("Index");
+                return RedirectToAction("Index", "Default");
             }
             return View();
         }
