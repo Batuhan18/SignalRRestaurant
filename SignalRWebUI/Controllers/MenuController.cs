@@ -32,6 +32,7 @@ namespace SignalRWebUI.Controllers
         {
             CreateBasketDto createBasketDto = new CreateBasketDto();
             createBasketDto.ProductID = id;
+            //Masa Numarası Atanmalı
             var client = _httpClientFactory.CreateClient();
             var jsonData = JsonConvert.SerializeObject(createBasketDto);
             StringContent content = new StringContent(jsonData, Encoding.UTF8, "application/json");
